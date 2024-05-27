@@ -94,6 +94,9 @@ jobs:
         name: test-reports
         path: build/reports/tests/test
     
+    - name: Create test reports archive
+      run: zip -r test-reports.zip build/reports/tests/test
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
@@ -101,8 +104,5 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Upload test reports to S3
-      uses: aws-actions/upload-s3@v2
-      with:
-        bucket: junit5
-        source-dir: build/reports/tests/test
+    - name: Upload test reports archive to S3
+      run: aws s3 cp test-reports.zip s3:/junit5/test-reports.zip
