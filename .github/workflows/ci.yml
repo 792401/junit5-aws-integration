@@ -105,4 +105,4 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Upload test reports archive to S3
-      run: aws s3 cp test-reports.zip s3:/junit5/test-reports.zip
+      run: aws s3 cp test-reports.zip s3://junit5/test-reports.zip
